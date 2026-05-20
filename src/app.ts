@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import helmet from 'helmet';
 import morgan from 'morgan';
+import { helmetMiddleware } from './lib/helmetMiddleware.js';
 import { env } from './config/env.js';
 import { connectDb } from './db/connect.js';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -25,7 +25,7 @@ export function createApp() {
     }
   });
 
-  app.use(helmet());
+  app.use(helmetMiddleware());
   app.use(
     cors({
       origin: env.corsOrigins,
