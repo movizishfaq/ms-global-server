@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { env } from './config/env.js';
+import { connectDb } from './db/connect.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import authRoutes from './routes/auth.routes.js';
 import sellerRoutes from './routes/seller.routes.js';
@@ -14,6 +15,16 @@ import siteRoutes from './routes/site.routes.js';
 
 export function createApp() {
   const app = express();
+
+  app.use(async (_req, _res, next) => {
+    try {
+      await connectDb();
+      next();
+    } catch (err) {
+      next(err);
+    }
+  });
+
   app.use(helmet());
   app.use(
     cors({
@@ -39,3 +50,6 @@ export function createApp() {
   app.use(errorHandler);
   return app;
 }
+
+/** Vercel zero-config Express entry (see vercel.com/docs/frameworks/backend/express) */
+export default createApp();

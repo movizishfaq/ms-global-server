@@ -26,9 +26,18 @@ npm run seed:admin
 
 ### Vercel (this repo)
 
-`vercel.json` routes all traffic to `api/index.ts` (Express + MongoDB).
+Uses [Express on Vercel](https://vercel.com/docs/frameworks/backend/express) — default export from `src/app.ts`.
 
-In **Vercel → Settings → Environment Variables** (Production):
+**Project settings (important):**
+
+| Setting | Value |
+|---------|--------|
+| Framework Preset | **Other** (or Express if listed) |
+| Root Directory | `.` (repo root) |
+| Build Command | `npm run build` (optional typecheck) or leave default |
+| **Output Directory** | **empty** — do not set `dist` |
+
+In **Settings → Environment Variables** (Production):
 
 | Variable | Required |
 |----------|----------|
