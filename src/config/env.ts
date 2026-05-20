@@ -10,13 +10,15 @@ function envString(name: string, fallback?: string): string {
 }
 
 function parseOrigins(): string[] {
-  const raw = [
-    process.env.FRONTEND_URL,
-    process.env.PUBLIC_SITE_URL,
-    process.env.STUDIO_URL
-  ]
-    .filter(Boolean)
-    .join(',');
+  const raw =
+    process.env.CORS_ORIGINS ??
+    [
+      process.env.FRONTEND_URL,
+      process.env.PUBLIC_SITE_URL,
+      process.env.STUDIO_URL
+    ]
+      .filter(Boolean)
+      .join(',');
   const list = raw
     .split(',')
     .map((s) => s.trim())
